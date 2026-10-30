@@ -1,0 +1,36 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Add a shortcut",
+        "description": "Give it a name and paste the URL of the page to add to the sidebar.",
+        "data": {
+          "name": "Name",
+          "url": "URL",
+          "icon": "Icon (mdi:...)"
+        }
+      }
+    },
+    "error": {
+      "invalid_url": "The URL must start with http:// or https://"
+    },
+    "abort": {
+      "already_configured": "This shortcut already exists"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Edit shortcut",
+        "data": {
+          "name": "Name",
+          "url": "URL",
+          "icon": "Icon (mdi:...)"
+        }
+      }
+    },
+    "error": {
+      "invalid_url": "The URL must start with http:// or https://"
+    }
+  }
+}

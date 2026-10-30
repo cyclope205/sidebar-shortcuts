@@ -4,11 +4,12 @@
 [![Version](https://img.shields.io/github/v/release/cyclope205/sidebar-shortcuts)](https://github.com/cyclope205/sidebar-shortcuts/releases)
 [![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2024.1%2B-03a9f4)](https://www.home-assistant.io/)
 
-**Ajoutez des raccourcis vers n'importe quelle page de Home Assistant dans le menu latéral, sans toucher à `configuration.yaml` et sans redémarrage.**
+**Ajoutez des raccourcis vers n'importe quelle page de Home Assistant (ou vers un site/appareil externe) dans le menu latéral, sans toucher à `configuration.yaml` et sans redémarrage.**
 
-Donnez un nom, collez une URL (ou juste le chemin, par exemple `/lovelace/xceed` ou `/config/integrations`), et le raccourci apparaît immédiatement dans la barre latérale. La navigation se fait en interne, dans la page Home Assistant elle-même — le même principe que `panel_custom` + `panel-redirect.js`, pas une iframe — donc ça fonctionne partout où votre Home Assistant est accessible (réseau local, accès distant en HTTPS, Nabu Casa...), sans les restrictions de contenu mixte qu'une iframe impose.
+Donnez un nom, collez une URL (ou juste le chemin, par exemple `/lovelace/xceed` ou `/config/integrations`), et le raccourci apparaît immédiatement dans la barre latérale.
 
-⚠️ Ce raccourci ne peut pointer que vers une page interne à votre instance Home Assistant (un tableau de bord, une page de configuration, etc.) — pas vers un autre site ou un autre appareil du réseau (NAS, routeur...).
+- **Lien interne** (une page de votre propre Home Assistant) : la navigation se fait en interne, dans la page Home Assistant elle-même — le même principe que `panel_custom` + `panel-redirect.js`, pas une iframe — donc ça fonctionne partout où votre Home Assistant est accessible (réseau local, accès distant en HTTPS, Nabu Casa...), sans les restrictions de contenu mixte qu'une iframe impose.
+- **Lien externe** (un autre site, un NAS, un routeur...) : il s'ouvre dans un nouvel onglet du navigateur, comme un lien classique. Aucune limite d'iframe (X-Frame-Options, contenu mixte) puisque la page n'est jamais intégrée dans Home Assistant.
 
 ---
 
@@ -22,20 +23,6 @@ Donnez un nom, collez une URL (ou juste le chemin, par exemple `/lovelace/xceed`
 - [Crédits & licence](#crédits--licence)
 
 ---
-## Captures d'écran
-
-**Configuration d'un raccourci** (sélecteur d'icône natif avec aperçu) :
-
-![Configuration d'un raccourci](images/screenshot-1793339446476-1f24c3e7.jpg)
-
-**Le raccourci dans le menu latéral** :
-![Raccourci dans le menu latéral](images/sidebar-shortcuts-menu-annotated.jpg)
-
-**Réorganiser la barre latérale** (Profil → Modifier la barre latérale) :
-![Modifier la barre latérale](images/sidebar-shortcuts-edit-annotated.jpg)
-
----
-
 
 ## Installation
 
@@ -52,12 +39,28 @@ Copiez le dossier `custom_components/sidebar_shortcuts` dans `/config/custom_com
 
 ---
 
+## Captures d'écran
+
+**Configuration d'un raccourci** (sélecteur d'icône natif avec aperçu) :
+
+![Configuration d'un raccourci](images/screenshot-1793339446476-1f24c3e7.jpg)
+
+**Le raccourci dans le menu latéral** :
+
+![Raccourci dans le menu latéral](images/sidebar-shortcuts-menu-annotated.jpg)
+
+**Réorganiser la barre latérale** (Profil → Modifier la barre latérale) :
+
+![Modifier la barre latérale](images/sidebar-shortcuts-edit-annotated.jpg)
+
+---
+
 ## Utilisation
 
 1. **Paramètres → Appareils et services → Ajouter une intégration → Sidebar Shortcuts.**
 2. Renseignez :
    - **Nom** : le texte affiché dans le menu latéral ;
-   - **URL** : l'adresse de la page interne à Home Assistant (complète, `https://...`, ou juste le chemin comme `/lovelace/xceed`) ;
+   - **URL** : l'adresse de la page (complète, `https://...`) — interne à Home Assistant ou externe (NAS, routeur, autre site) ;
    - **Icône** *(optionnel)* : sélecteur d'icône natif Home Assistant, avec aperçu en temps réel — icônes [Material Design Icons](https://pictogrammers.com/library/mdi/) (`mdi:...`) et tout pack d'icônes additionnel installé (par exemple [Custom brand icons](https://github.com/elax46/custom-brand-icons), préfixe `phu:`). Par défaut : `mdi:link-variant`.
 3. Validez : le raccourci apparaît aussitôt dans la barre latérale, sans redémarrage.
 
@@ -79,9 +82,9 @@ Pour ajouter un autre raccourci, répétez l'opération : **Ajouter une intégra
 
 **Le raccourci n'apparaît pas après l'ajout.** Rechargez la page (Ctrl + Maj + R). Si ça persiste, vérifiez dans Paramètres → Appareils et services que l'intégration est bien à l'état « chargé ».
 
-**Le raccourci ne va pas où je veux / reste sur la mauvaise page.** La redirection n'utilise que le chemin de l'URL renseignée (ce qui suit l'adresse de votre serveur), jamais le domaine ou le protocole — c'est voulu, pour que le raccourci marche quel que soit l'endroit d'où vous accédez à Home Assistant. Si vous avez collé l'URL d'un site externe ou d'un autre appareil, ça ne fonctionnera pas : voir la limite ci-dessous.
+**Le raccourci interne ne va pas où je veux / reste sur la mauvaise page.** Pour un lien interne, la redirection n'utilise que le chemin de l'URL renseignée (ce qui suit l'adresse de votre serveur), jamais le domaine ou le protocole — c'est voulu, pour que le raccourci marche quel que soit l'endroit d'où vous accédez à Home Assistant.
 
-**Puis-je mettre un lien vers un site externe ou un autre appareil (NAS, routeur...) ?** Non, pas avec cette version. Le raccourci redirige en interne, à l'intérieur de la page Home Assistant elle-même ; il ne peut pas changer d'origine. Pour un site vraiment externe, il faudrait repasser par une iframe classique — hors du périmètre de cette intégration pour l'instant.
+**Puis-je mettre un lien vers un site externe ou un autre appareil (NAS, routeur...) ?** Oui. Le raccourci détecte automatiquement qu'il s'agit d'une autre origine et l'ouvre dans un nouvel onglet du navigateur, exactement comme un lien classique. Il n'y a pas de restriction côté HA — en revanche, l'appareil ou le site visé doit bien sûr être joignable depuis l'appareil sur lequel vous cliquez (même réseau, VPN, accès distant propre à ce service...).
 
 **J'ai plusieurs raccourcis à ajouter, dois-je redémarrer à chaque fois ?** Non. Le redémarrage n'est nécessaire qu'une fois, après l'installation initiale de l'intégration elle-même (pour que Home Assistant découvre le nouveau domaine `sidebar_shortcuts`). Chaque raccourci ajouté ensuite apparaît immédiatement.
 
@@ -93,4 +96,4 @@ Pour ajouter un autre raccourci, répétez l'opération : **Ajouter une intégra
 
 Code : licence **MIT** — © cyclope205.
 
-S'appuie sur l'API native `panel_custom` de Home Assistant et sur le mécanisme `history.replaceState` popularisé par le script communautaire `panel-redirect.js` — le même principe, mais piloté dynamiquement depuis Python (aucune écriture YAML, aucun redémarrage nécessaire par raccourci).
+Les liens internes s'appuient sur l'API native `panel_custom` de Home Assistant et sur le mécanisme `history.replaceState` popularisé par le script communautaire `panel-redirect.js` — le même principe, mais piloté dynamiquement depuis Python (aucune écriture YAML, aucun redémarrage nécessaire par raccourci). Les liens externes utilisent simplement `window.open`, comme un lien classique.

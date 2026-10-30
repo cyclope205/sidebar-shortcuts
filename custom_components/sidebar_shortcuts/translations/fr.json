@@ -1,0 +1,36 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Ajouter un raccourci",
+        "description": "Donnez un nom et collez l'URL de la page à ajouter dans le menu latéral.",
+        "data": {
+          "name": "Nom",
+          "url": "URL",
+          "icon": "Icône (mdi:...)"
+        }
+      }
+    },
+    "error": {
+      "invalid_url": "L'URL doit commencer par http:// ou https://"
+    },
+    "abort": {
+      "already_configured": "Ce raccourci existe déjà"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Modifier le raccourci",
+        "data": {
+          "name": "Nom",
+          "url": "URL",
+          "icon": "Icône (mdi:...)"
+        }
+      }
+    },
+    "error": {
+      "invalid_url": "L'URL doit commencer par http:// ou https://"
+    }
+  }
+}

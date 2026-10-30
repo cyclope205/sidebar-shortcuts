@@ -15,12 +15,29 @@ Donnez un nom, collez une URL (ou juste le chemin, par exemple `/lovelace/xceed`
 ## Sommaire
 
 - [Installation](#installation)
+- [Captures d'écran](#captures-décran)
 - [Utilisation](#utilisation)
 - [Modifier ou supprimer un raccourci](#modifier-ou-supprimer-un-raccourci)
 - [FAQ / dépannage](#faq--dépannage)
 - [Crédits & licence](#crédits--licence)
 
 ---
+## Captures d'écran
+
+**Configuration d'un raccourci** (sélecteur d'icône natif avec aperçu) :
+
+![Configuration d'un raccourci](images/screenshot-1793339446476-1f24c3e7.jpg)
+
+**Le raccourci dans le menu latéral** :
+
+![Raccourci dans le menu latéral](images/screenshot-1793339485781-d84b424f.jpg)
+
+**Réorganiser la barre latérale** (Profil → Modifier la barre latérale) :
+
+![Modifier la barre latérale](images/screenshot-1793339519565-0a1f966d.jpg)
+
+---
+
 
 ## Installation
 

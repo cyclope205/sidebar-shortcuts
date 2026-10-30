@@ -14,6 +14,7 @@ import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.core import callback
 from homeassistant.data_entry_flow import FlowResult
+from homeassistant.helpers import selector
 
 from .const import CONF_ICON, CONF_NAME, CONF_URL, DEFAULT_ICON, DOMAIN
 
@@ -31,7 +32,11 @@ def _schema(defaults: dict[str, Any] | None = None) -> vol.Schema:
         {
             vol.Required(CONF_NAME, default=defaults.get(CONF_NAME, "")): str,
             vol.Required(CONF_URL, default=defaults.get(CONF_URL, "")): str,
-            vol.Optional(CONF_ICON, default=defaults.get(CONF_ICON, DEFAULT_ICON)): str,
+            vol.Optional(
+                CONF_ICON, default=defaults.get(CONF_ICON, DEFAULT_ICON)
+            ): selector.IconSelector(
+                selector.IconSelectorConfig(placeholder=DEFAULT_ICON)
+            ),
         }
     )
 

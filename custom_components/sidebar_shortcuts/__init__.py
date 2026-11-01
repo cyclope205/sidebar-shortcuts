@@ -2,17 +2,19 @@
 
 Each config entry represents one sidebar shortcut: a name, an icon and a
 URL. Instead of loading the URL in an iframe, the shortcut is registered
-as a ``panel_custom`` panel that redirects internally via
-``history.replaceState`` - exactly the same principle as the well-known
-community ``panel_custom`` + ``panel-redirect.js`` pattern used directly
-in ``configuration.yaml``. Because it's a same-origin navigation rather
-than a cross-origin iframe, it works from anywhere the Home Assistant
-frontend itself is reachable (local network, remote HTTPS, Nabu Casa...),
-with none of the mixed-content restrictions an iframe has.
+as a ``panel_custom`` panel whose frontend component decides, at click
+time, how to get there:
 
-This only works for targets internal to this Home Assistant instance
-(dashboards, config pages, etc.) - it cannot reach a different site or
-device, same as the native mechanism it mirrors.
+- Internal target (same origin as the page the user is currently on):
+  redirects in place via ``history.replaceState`` - exactly the same
+  principle as the well-known community ``panel_custom`` +
+  ``panel-redirect.js`` pattern used directly in ``configuration.yaml``.
+  Same-origin navigation, so it works from anywhere the Home Assistant
+  frontend itself is reachable (local network, remote HTTPS, Nabu
+  Casa...), with none of the mixed-content restrictions an iframe has.
+- External target (a different origin - another site, a NAS, a
+  router...): opened in a new browser tab, like a normal link. None of
+  the iframe limitations (X-Frame-Options, mixed content) apply.
 
 All of this is still registered dynamically from Python at runtime
 (``panel_custom.async_register_panel``), exactly like the previous
@@ -22,6 +24,7 @@ installed.
 """
 from __future__ import annotations
 
+import json
 import logging
 from pathlib import Path
 from urllib.parse import urlparse
@@ -40,6 +43,27 @@ PLATFORMS: list[str] = []
 
 STATIC_URL_PATH = "/sidebar_shortcuts_static/sidebar-shortcut-redirect.js"
 WEBCOMPONENT_NAME = "sidebar-shortcut-redirect"
+
+
+def _manifest_version() -> str:
+    """Read this integration's version from its own manifest.json.
+
+    Used to cache-bust the redirect panel's JS module (see
+    ``_async_register_static_path``): the static file is served with a
+    long-lived ``Cache-Control`` header, so without a version query
+    string browsers that already cached an older build would keep
+    running stale JS after an update, even past a restart.
+    """
+    try:
+        manifest = json.loads(
+            (Path(__file__).parent / "manifest.json").read_text(encoding="utf-8")
+        )
+        return str(manifest.get("version", "0"))
+    except (OSError, ValueError):
+        return "0"
+
+
+MODULE_VERSION = _manifest_version()
 
 
 def _panel_path(entry_id: str) -> str:
@@ -83,10 +107,10 @@ async def _register_panel(hass: HomeAssistant, path: str, name: str, icon: str, 
         frontend_url_path=path,
         sidebar_title=name,
         sidebar_icon=icon,
-        module_url=STATIC_URL_PATH,
+        module_url=f"{STATIC_URL_PATH}?v={MODULE_VERSION}",
         embed_iframe=False,
         require_admin=False,
-        config={"target": target},
+        config={"target": target, "url": url},
     )
     try:
         await async_register_panel(hass, **kwargs)

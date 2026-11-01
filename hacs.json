@@ -1,5 +1,8 @@
 {
   "name": "Sidebar Shortcuts",
   "render_readme": true,
-  "homeassistant": "2024.1.0"
+  "homeassistant": "2024.1.0",
+  "content_in_root": false,
+  "zip_release": true,
+  "filename": "sidebar_shortcuts.zip"
 }

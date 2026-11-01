@@ -1,0 +1,27 @@
+name: Release zip
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  zip_release:
+    name: Zip and attach release asset
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Zip the integration directory
+        shell: bash
+        run: |
+          cd custom_components/sidebar_shortcuts
+          zip sidebar_shortcuts.zip -r ./
+
+      - name: Upload the ZIP to the release
+        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2
+        with:
+          files: custom_components/sidebar_shortcuts/sidebar_shortcuts.zip

@@ -1,19 +1,20 @@
 /*
- * Sidebar Shortcuts - internal redirect panel.
+ * Sidebar Shortcuts - redirect panel.
  *
- * Same principle as the well-known community "panel-redirect.js"
- * (panel_custom + history.replaceState): instead of loading the target
- * in an iframe, this rewrites the browser URL in place and tells the
- * Home Assistant frontend to re-render. Because it's a same-origin
- * navigation (not a cross-origin iframe), it works everywhere the
- * Home Assistant app itself is reachable - local network, remote
- * HTTPS access, Nabu Casa, etc. - with none of the mixed-content
- * restrictions an iframe has.
+ * Internal targets (same origin as the current Home Assistant page):
+ * same principle as the well-known community "panel-redirect.js"
+ * (panel_custom + history.replaceState) - rewrites the browser URL in
+ * place and tells the Home Assistant frontend to re-render. Because
+ * it's a same-origin navigation (not a cross-origin iframe), it works
+ * everywhere the Home Assistant app itself is reachable - local
+ * network, remote HTTPS access, Nabu Casa, etc. - with none of the
+ * mixed-content restrictions an iframe has.
  *
- * It only works for targets that are internal to this Home Assistant
- * instance (e.g. /lovelace/xxx, /config/integrations). It cannot be
- * used to reach a different origin (another site, a NAS, a router) -
- * the browser blocks cross-origin history.replaceState.
+ * External targets (a different origin - another site, a NAS, a
+ * router...): opened in a new browser tab instead, exactly like a
+ * normal link with target="_blank". None of the iframe limitations
+ * (X-Frame-Options, mixed content) apply since the page is never
+ * embedded. The sidebar then returns to the previous panel.
  */
 class SidebarShortcutRedirect extends HTMLElement {
   connectedCallback() {
@@ -31,8 +32,33 @@ class SidebarShortcutRedirect extends HTMLElement {
   }
 
   _navigate() {
-    const target = this._info.config.target;
-    history.replaceState(null, "", target);
+    const config = this._info.config;
+    const url = config.url;
+
+    let isExternal = true;
+    try {
+      isExternal = new URL(url, window.location.href).origin !== window.location.origin;
+    } catch (e) {
+      isExternal = true;
+    }
+
+    if (isExternal) {
+      window.open(url, "_blank", "noopener");
+      if (window.history.length > 1) {
+        history.back();
+      } else {
+        history.replaceState(null, "", "/");
+        const event = new Event("location-changed", {
+          bubbles: true,
+          composed: true,
+        });
+        event.detail = { replace: true };
+        this.dispatchEvent(event);
+      }
+      return;
+    }
+
+    history.replaceState(null, "", config.target);
     const event = new Event("location-changed", {
       bubbles: true,
       composed: true,

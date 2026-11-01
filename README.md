@@ -1,23 +1,13 @@
-# 🔗 Sidebar Shortcuts
+# Sidebar Shortcuts
 
-<table>
-<tr>
-<td>
-
-[![release](https://img.shields.io/github/v/release/cyclope205/sidebar-shortcuts?label=release&color=blue)](https://github.com/cyclope205/sidebar-shortcuts/releases)
-[![build](https://github.com/cyclope205/sidebar-shortcuts/actions/workflows/validate.yml/badge.svg)](https://github.com/cyclope205/sidebar-shortcuts/actions/workflows/validate.yml)
-[![license](https://img.shields.io/github/license/cyclope205/sidebar-shortcuts?color=green)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/cyclope205/sidebar-shortcuts)](https://github.com/cyclope205/sidebar-shortcuts/releases)
+[![Build](https://img.shields.io/github/actions/workflow/status/cyclope205/sidebar-shortcuts/validate.yml?branch=main)](https://github.com/cyclope205/sidebar-shortcuts/actions/workflows/validate.yml)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![HACS](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/hacs/integration)
-
-</td>
-<td width="110" align="right">
-<img src="custom_components/sidebar_shortcuts/brand/icon.png" width="90" alt="logo">
-</td>
-</tr>
-</table>
 
 [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-cyclope205-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/cyclope205)
 [![PayPal](https://img.shields.io/badge/PayPal-Donate-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/cyclope205)
+<img src="custom_components/sidebar_shortcuts/brand/icon.png" alt="Sidebar Shortcuts" width="32">
 
 Add shortcuts to any page — inside Home Assistant or on another site/device — to the sidebar, without touching `configuration.yaml` and without a restart.
 

@@ -162,7 +162,7 @@ Donnez un nom, collez une URL (ou juste le chemin, par exemple `/lovelace/xceed`
 1. HACS → menu **⋮** → **Dépôts personnalisés**.
 2. Dépôt : `https://github.com/cyclope205/sidebar-shortcuts`. Type : **Intégration**. Cliquez sur **Ajouter**.
 
-   [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=cyclope205&repository=sidebar-shortcuts&category=integration)
+   [![Ouvrir dans HACS](https://img.shields.io/badge/Ouvrir_dans_HACS-18BCF2?style=for-the-badge&logo=homeassistant&logoColor=white)](https://my.home-assistant.io/redirect/hacs_repository/?owner=cyclope205&repository=sidebar-shortcuts&category=integration)
 3. Recherchez **Sidebar Shortcuts** → **Télécharger**.
 4. **Redémarrez** Home Assistant (une seule fois, pour charger l'intégration elle-même).
 
@@ -173,7 +173,7 @@ Copiez le dossier `custom_components/sidebar_shortcuts` dans `/config/custom_com
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### Utilisation
 
-[![Open your Home Assistant instance and show the add integration dialog with a specific integration pre-selected.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=sidebar_shortcuts)
+[![Ajouter l'intégration](https://img.shields.io/badge/Ajouter_l'int%C3%A9gration-18BCF2?style=for-the-badge&logo=homeassistant&logoColor=white)](https://my.home-assistant.io/redirect/config_flow_start/?domain=sidebar_shortcuts)
 
 1. **Paramètres → Appareils et services → Ajouter une intégration → Sidebar Shortcuts.**
 2. Renseignez :

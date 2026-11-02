@@ -90,6 +90,8 @@ Copy the `custom_components/sidebar_shortcuts` folder into `/config/custom_compo
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### Usage
 
+[![Open your Home Assistant instance and show the add integration dialog with a specific integration pre-selected.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=sidebar_shortcuts)
+
 1. **Settings → Devices & services → Add integration → Sidebar Shortcuts.**
 2. Fill in:
    - **Name**: the text shown in the sidebar;
@@ -170,6 +172,8 @@ Copiez le dossier `custom_components/sidebar_shortcuts` dans `/config/custom_com
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### Utilisation
+
+[![Open your Home Assistant instance and show the add integration dialog with a specific integration pre-selected.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=sidebar_shortcuts)
 
 1. **Paramètres → Appareils et services → Ajouter une intégration → Sidebar Shortcuts.**
 2. Renseignez :

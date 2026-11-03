@@ -51,7 +51,7 @@ Add shortcuts to any page — inside Home Assistant or on another site/device �
 
 ### What it does
 
-Give it a name, paste a URL (or just the path, e.g. `/lovelace/xceed` or `/config/integrations`), and the shortcut shows up immediately in the sidebar.
+Give it a name, paste a full URL (e.g. `https://homeassistant.local:8123/lovelace/xceed` or `https://homeassistant.local:8123/config/integrations`), and the shortcut shows up immediately in the sidebar.
 
 - **Internal link** (a page on your own Home Assistant instance): navigation happens in place, inside the Home Assistant page itself — the same principle as `panel_custom` + `panel-redirect.js`, not an iframe — so it works everywhere your Home Assistant is reachable (local network, remote HTTPS access, Nabu Casa...), with none of the mixed-content restrictions an iframe has.
 - **External link** (another site, a NAS, a router...): it opens in a new browser tab, exactly like a normal link. No iframe limitations (X-Frame-Options, mixed content) apply since the page is never embedded in Home Assistant.
@@ -134,7 +134,7 @@ See [LICENSE](LICENSE).
 
 ### Ce que ça fait
 
-Donnez un nom, collez une URL (ou juste le chemin, par exemple `/lovelace/xceed` ou `/config/integrations`), et le raccourci apparaît immédiatement dans la barre latérale.
+Donnez un nom, collez une URL complète (par exemple `https://homeassistant.local:8123/lovelace/xceed` ou `https://homeassistant.local:8123/config/integrations`), et le raccourci apparaît immédiatement dans la barre latérale.
 
 - **Lien interne** (une page de votre propre Home Assistant) : la navigation se fait en interne, dans la page Home Assistant elle-même — le même principe que `panel_custom` + `panel-redirect.js`, pas une iframe — donc ça fonctionne partout où votre Home Assistant est accessible (réseau local, accès distant en HTTPS, Nabu Casa...), sans les restrictions de contenu mixte qu'une iframe impose.
 - **Lien externe** (un autre site, un NAS, un routeur...) : il s'ouvre dans un nouvel onglet du navigateur, comme un lien classique. Aucune limite d'iframe (X-Frame-Options, contenu mixte) puisque la page n'est jamais intégrée dans Home Assistant.

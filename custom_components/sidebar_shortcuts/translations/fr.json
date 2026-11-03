@@ -7,7 +7,8 @@
         "data": {
           "name": "Nom",
           "url": "URL",
-          "icon": "Icône (mdi:...)"
+          "icon": "Icône (mdi:...)",
+          "link_mode": "Mode du lien"
         }
       }
     },
@@ -25,12 +26,22 @@
         "data": {
           "name": "Nom",
           "url": "URL",
-          "icon": "Icône (mdi:...)"
+          "icon": "Icône (mdi:...)",
+          "link_mode": "Mode du lien"
         }
       }
     },
     "error": {
       "invalid_url": "L'URL doit commencer par http:// ou https://"
+    }
+  },
+  "selector": {
+    "link_mode": {
+      "options": {
+        "auto": "Automatique (détection selon l'adresse en cours)",
+        "internal": "Toujours interne (reste dans Home Assistant)",
+        "external": "Toujours externe (ouvre un nouvel onglet)"
+      }
     }
   }
 }

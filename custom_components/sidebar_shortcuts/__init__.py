@@ -16,6 +16,14 @@ time, how to get there:
   router...): opened in a new browser tab, like a normal link. None of
   the iframe limitations (X-Frame-Options, mixed content) apply.
 
+A shortcut's ``link_mode`` (auto / internal / external) overrides this
+origin-based auto-detection when set: useful when Home Assistant is
+reachable from several different addresses (local IP, Nabu Casa,
+Tailscale...) and the automatic same-origin check would misclassify a
+page. Absent on every shortcut created before this field existed, so
+``entry.data.get(CONF_LINK_MODE, LINK_MODE_AUTO)`` preserves today's
+auto-detect behavior for all of them without any migration.
+
 All of this is still registered dynamically from Python at runtime
 (``panel_custom.async_register_panel``), exactly like the previous
 iframe-based version - no YAML is written or required, and no restart
@@ -35,7 +43,15 @@ from homeassistant.components import frontend
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 
-from .const import CONF_ICON, CONF_NAME, CONF_URL, DEFAULT_ICON, DOMAIN
+from .const import (
+    CONF_ICON,
+    CONF_LINK_MODE,
+    CONF_NAME,
+    CONF_URL,
+    DEFAULT_ICON,
+    DOMAIN,
+    LINK_MODE_AUTO,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -99,7 +115,14 @@ async def _async_register_static_path(hass: HomeAssistant) -> None:
     )
 
 
-async def _register_panel(hass: HomeAssistant, path: str, name: str, icon: str, url: str) -> None:
+async def _register_panel(
+    hass: HomeAssistant,
+    path: str,
+    name: str,
+    icon: str,
+    url: str,
+    link_mode: str,
+) -> None:
     """Register (or replace) the sidebar panel for one shortcut."""
     target = _target_path(url)
     kwargs = dict(
@@ -110,7 +133,7 @@ async def _register_panel(hass: HomeAssistant, path: str, name: str, icon: str, 
         module_url=f"{STATIC_URL_PATH}?v={MODULE_VERSION}",
         embed_iframe=False,
         require_admin=False,
-        config={"target": target, "url": url},
+        config={"target": target, "url": url, "link_mode": link_mode},
     )
     try:
         await async_register_panel(hass, **kwargs)
@@ -130,8 +153,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     name = entry.data[CONF_NAME]
     url = entry.data[CONF_URL]
     icon = entry.data.get(CONF_ICON, DEFAULT_ICON)
+    link_mode = entry.data.get(CONF_LINK_MODE, LINK_MODE_AUTO)
 
-    await _register_panel(hass, path, name, icon, url)
+    await _register_panel(hass, path, name, icon, url, link_mode)
 
     hass.data[DOMAIN][entry.entry_id] = path
     entry.async_on_unload(entry.add_update_listener(_async_update_listener))

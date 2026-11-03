@@ -15,6 +15,17 @@
  * normal link with target="_blank". None of the iframe limitations
  * (X-Frame-Options, mixed content) apply since the page is never
  * embedded. The sidebar then returns to the previous panel.
+ *
+ * link_mode ("auto" / "internal" / "external", set per-shortcut in the
+ * config flow) overrides the automatic same-origin detection below.
+ * Auto-detection compares the shortcut's URL to the CURRENT page's
+ * origin at click time, which misclassifies a shortcut whenever Home
+ * Assistant is reached from a different address than the one used
+ * when the shortcut was configured (local IP vs Nabu Casa vs
+ * Tailscale...). link_mode lets the user pin the correct behavior
+ * explicitly instead of relying on that guess. Shortcuts created
+ * before this field existed have no link_mode in their config, so
+ * they fall through to "auto" and keep behaving exactly as before.
  */
 class SidebarShortcutRedirect extends HTMLElement {
   connectedCallback() {
@@ -34,12 +45,20 @@ class SidebarShortcutRedirect extends HTMLElement {
   _navigate() {
     const config = this._info.config;
     const url = config.url;
+    const linkMode = config.link_mode || "auto";
 
-    let isExternal = true;
-    try {
-      isExternal = new URL(url, window.location.href).origin !== window.location.origin;
-    } catch (e) {
+    let isExternal;
+    if (linkMode === "internal") {
+      isExternal = false;
+    } else if (linkMode === "external") {
       isExternal = true;
+    } else {
+      isExternal = true;
+      try {
+        isExternal = new URL(url, window.location.href).origin !== window.location.origin;
+      } catch (e) {
+        isExternal = true;
+      }
     }
 
     if (isExternal) {

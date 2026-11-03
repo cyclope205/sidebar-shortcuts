@@ -85,8 +85,6 @@ Give it a name, paste a full URL — `http://` or `https://` (e.g. `https://home
    or simply search for **Sidebar Shortcuts** in HACS — it's part of HACS's default repository list, so it shows up directly in the store, no custom repository needed.
 2. **Restart** Home Assistant (once, to load the integration itself).
 
-**Not showing up in search yet?** Sidebar Shortcuts was only just accepted into HACS's default list — if your instance's catalog hasn't picked it up yet, add it as a custom repository in the meantime: HACS → **⋮** menu → **Custom repositories** → repository `https://github.com/cyclope205/sidebar-shortcuts`, type **Integration** → **Add**, then search and download as above.
-
 **Manual installation:**
 
 Copy the `custom_components/sidebar_shortcuts` folder into `/config/custom_components/`, then restart Home Assistant.
@@ -174,8 +172,6 @@ Donnez un nom, collez une URL complète — `http://` ou `https://` (par exemple
 
    ou recherchez simplement **Sidebar Shortcuts** dans HACS — il fait partie du dépôt par défaut de HACS, donc il apparaît directement dans le magasin, sans dépôt personnalisé à ajouter.
 2. **Redémarrez** Home Assistant (une seule fois, pour charger l'intégration elle-même).
-
-**Pas encore visible dans la recherche ?** Sidebar Shortcuts vient tout juste d'être accepté dans le dépôt par défaut de HACS — si le catalogue de votre instance ne l'a pas encore récupéré, ajoutez-le en dépôt personnalisé en attendant : HACS → menu **⋮** → **Dépôts personnalisés** → dépôt `https://github.com/cyclope205/sidebar-shortcuts`, type **Intégration** → **Ajouter**, puis recherchez et téléchargez comme ci-dessus.
 
 **Installation manuelle :**
 

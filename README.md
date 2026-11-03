@@ -60,9 +60,9 @@ Give it a name, paste a full URL — `http://` or `https://` (e.g. `https://home
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### Screenshots
 
-**Setting up a shortcut** (native icon picker with live preview):
+**Setting up a shortcut** (native icon picker with live preview, plus the link mode selector):
 
-![Setting up a shortcut](images/screenshot-1793339446476-1f24c3e7.jpg)
+![Setting up a shortcut](images/4c6ead0f-0086-4d5c-86a1-1721af189360-image.png)
 
 **The shortcut in the sidebar**:
 
@@ -147,9 +147,9 @@ Donnez un nom, collez une URL complète — `http://` ou `https://` (par exemple
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### Captures d'écran
 
-**Configuration d'un raccourci** (sélecteur d'icône natif avec aperçu) :
+**Configuration d'un raccourci** (sélecteur d'icône natif avec aperçu, et le sélecteur de mode du lien) :
 
-![Configuration d'un raccourci](images/screenshot-1793339446476-1f24c3e7.jpg)
+![Configuration d'un raccourci](images/4c6ead0f-0086-4d5c-86a1-1721af189360-image.png)
 
 **Le raccourci dans le menu latéral** :
 

@@ -80,7 +80,6 @@ Give it a name, paste a full URL — `http://` or `https://` (e.g. `https://home
 1. Open Sidebar Shortcuts in HACS and install it:
 
    [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=cyclope205&repository=sidebar-shortcuts&category=integration)
-   [![Open in Marketplace](https://raw.githubusercontent.com/cyclope205/sidebar-shortcuts/main/docs/badges/badge-marketplace-fr.svg)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=cyclope205&repository=sidebar-shortcuts&category=integration)
 
    or simply search for **Sidebar Shortcuts** in HACS — it's part of HACS's default repository list, so it shows up directly in the store, no custom repository needed.
 2. **Restart** Home Assistant (once, to load the integration itself).

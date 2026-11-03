@@ -16,7 +16,16 @@ from homeassistant.core import callback
 from homeassistant.data_entry_flow import FlowResult
 from homeassistant.helpers import selector
 
-from .const import CONF_ICON, CONF_NAME, CONF_URL, DEFAULT_ICON, DOMAIN
+from .const import (
+    CONF_ICON,
+    CONF_LINK_MODE,
+    CONF_NAME,
+    CONF_URL,
+    DEFAULT_ICON,
+    DOMAIN,
+    LINK_MODE_AUTO,
+    LINK_MODE_OPTIONS,
+)
 
 
 def _validate_url(url: str) -> None:
@@ -37,6 +46,15 @@ def _schema(defaults: dict[str, Any] | None = None) -> vol.Schema:
             ): selector.IconSelector(
                 selector.IconSelectorConfig(placeholder=DEFAULT_ICON)
             ),
+            vol.Optional(
+                CONF_LINK_MODE, default=defaults.get(CONF_LINK_MODE, LINK_MODE_AUTO)
+            ): selector.SelectSelector(
+                selector.SelectSelectorConfig(
+                    options=LINK_MODE_OPTIONS,
+                    mode=selector.SelectSelectorMode.DROPDOWN,
+                    translation_key=CONF_LINK_MODE,
+                )
+            ),
         }
     )
 
@@ -55,6 +73,7 @@ class SidebarShortcutsConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             name = user_input[CONF_NAME].strip()
             url = user_input[CONF_URL].strip()
             icon = (user_input.get(CONF_ICON) or DEFAULT_ICON).strip() or DEFAULT_ICON
+            link_mode = user_input.get(CONF_LINK_MODE, LINK_MODE_AUTO)
 
             try:
                 _validate_url(url)
@@ -65,7 +84,7 @@ class SidebarShortcutsConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 self._abort_if_unique_id_configured()
                 return self.async_create_entry(
                     title=name,
-                    data={CONF_NAME: name, CONF_URL: url, CONF_ICON: icon},
+                    data={CONF_NAME: name, CONF_URL: url, CONF_ICON: icon, CONF_LINK_MODE: link_mode},
                 )
 
         return self.async_show_form(
@@ -93,6 +112,7 @@ class SidebarShortcutsOptionsFlow(config_entries.OptionsFlow):
             name = user_input[CONF_NAME].strip()
             url = user_input[CONF_URL].strip()
             icon = (user_input.get(CONF_ICON) or DEFAULT_ICON).strip() or DEFAULT_ICON
+            link_mode = user_input.get(CONF_LINK_MODE, LINK_MODE_AUTO)
 
             try:
                 _validate_url(url)
@@ -102,7 +122,7 @@ class SidebarShortcutsOptionsFlow(config_entries.OptionsFlow):
                 self.hass.config_entries.async_update_entry(
                     entry,
                     title=name,
-                    data={CONF_NAME: name, CONF_URL: url, CONF_ICON: icon},
+                    data={CONF_NAME: name, CONF_URL: url, CONF_ICON: icon, CONF_LINK_MODE: link_mode},
                 )
                 return self.async_create_entry(title="", data={})
 
